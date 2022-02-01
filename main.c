@@ -2,6 +2,7 @@
 #include "lib/key_expansion.h"
 #include "lib/initializations.h"
 #include "lib/ctr.h"
+#include "lib/aes_encrypt.h"
 #include <stdio.h>
 
 void print_data(unsigned char *data, int length){
@@ -31,7 +32,7 @@ int main(){
     
     print_data(expansion, 16*11);
 
-    /***** test nonce generation *****/
+    /***** test nonce generation *****
 
     unsigned char *nonce;
     nonce = generate_initial_counter(); 
@@ -42,6 +43,10 @@ int main(){
         next_counter(nonce);
         print_data(nonce, 16);
     }
+
+    /***** TO-DO : test encrypt_block *****/
+
+    
 
     /***********************/
 
