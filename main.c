@@ -1,9 +1,12 @@
 #include "lib/aes_steps.h"
+#include "lib/key_expansion.h"
+#include "lib/initializations.h"
 #include <stdio.h>
 
 void print_data(unsigned char *data, int length){
     for (int i = 0; i<length; i++)
         printf("%x ", data[i]);
+    printf("\n");
 }
 
 int main(){
@@ -13,14 +16,22 @@ int main(){
     /***** test add round key *****/
 
     addRoundKey(block, test_key);
+    print_data(block, BLOCK_SIZE);
 
     /***** test subytes *****/
 
     subytes(block);
+    print_data(block, BLOCK_SIZE);
+
+    /***** test key expansion *****/
+
+    unsigned char *expansion;
+    expansion = key_expansion(test_key, 16);    
+    
+    print_data(expansion, 16*11);
 
     /***********************/
 
-    print_data(block, BLOCK_SIZE);
 
     return 0;
 }

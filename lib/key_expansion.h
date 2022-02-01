@@ -1,0 +1,1 @@
+unsigned char * key_expansion(unsigned char *key, int key_length);
