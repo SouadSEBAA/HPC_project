@@ -1,6 +1,7 @@
 #include "initializations.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 
 void rotword(unsigned char * tab){ //tab should be a word, thus it is 4 bytes in length
@@ -25,8 +26,7 @@ unsigned char * key_expansion(unsigned char *key, int key_length){ //key_length 
     unsigned char *w = (unsigned char *) malloc(4*(Nr+1)*Nb * sizeof(unsigned char));
 
     //first subkey is the key itself
-    for (int j = 0; j < BLOCK_SIZE; j++)
-        w[j] = key[j];
+    memcpy(w, key, BLOCK_SIZE);
 
     //compute next subkeys
     for (int i = Nk; i < Nb*(Nr+1); i++)
