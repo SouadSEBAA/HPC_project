@@ -44,11 +44,22 @@ int main(){
         print_data(nonce, 16);
     }
 
-    /***** TO-DO : test encrypt_block *****/
-
+    /***** TO-DO : test encrypt_block *****
+    // TO-DO : free pointers where they should be freed
+    print_data(encrypt_block(block, expansion, nonce),BLOCK_SIZE);
     
 
     /***********************/
+
+    //read key
+    //expand key
+    //generate nonce
+    //write the nonce
+    //for
+    //extract one block from file
+    //encrypt it
+    //write it
+
 
 
     return 0;

@@ -23,7 +23,7 @@ void increment_counter(unsigned char *counter, int inc)
     {
         if (counter[i] < 0xff)
         {
-            counter[i] ++;
+            counter[i] += inc;
             stop = 1;
         }
         else

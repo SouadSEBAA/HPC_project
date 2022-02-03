@@ -26,5 +26,10 @@ unsigned char * F(unsigned char *block, unsigned char *expanded_key)
 
 unsigned char *encrypt_block(unsigned char *block, unsigned char *expanded_key, unsigned char *counter)
 {
-    return xor(block, F(counter, expanded_key));
+    unsigned char *new_state = F(counter, expanded_key);
+    unsigned char *after_xor = xor(block, new_state);
+    free(new_state);
+    new_state = NULL;
+    
+    return after_xor;
 }
