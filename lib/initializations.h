@@ -3,3 +3,4 @@
 
 extern const unsigned char rcon[ROUNDS_NUMBER];
 extern const unsigned char sbox[BLOCK_SIZE*BLOCK_SIZE];
+extern const unsigned char mixColMatrix[BLOCK_SIZE*BLOCK_SIZE][6];
