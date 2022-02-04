@@ -7,29 +7,36 @@
 
 unsigned char * F(unsigned char *block, unsigned char *expanded_key)
 {
-    unsigned char *state = (unsigned char *) malloc(BLOCK_SIZE * sizeof(unsigned char));
-    memcpy(state, block, BLOCK_SIZE);
     int round = 0;
 
-    addRoundKey(state, get_ith_subkey(expanded_key, round));
+    //get copy of block in state variable
+    unsigned char *state = (unsigned char *) malloc(BLOCK_SIZE * sizeof(unsigned char));
+    memcpy(state, block, BLOCK_SIZE);
+
+    //get first subkey from the expanded key
+    unsigned char *subkey = (unsigned char *) malloc(BLOCK_SIZE * sizeof(unsigned char));
+    get_ith_item(subkey, expanded_key, round, BLOCK_SIZE);
+
+    addRoundKey(state, subkey);
 
     for (round = 1; round <= ROUNDS_NUMBER; round++)
     {
         subytes(state);
         //shift_rows
         //mix_columns
-        if (round != ROUNDS_NUMBER) addRoundKey(state, get_ith_subkey(expanded_key, round));
+        get_ith_item(subkey, expanded_key, round, BLOCK_SIZE);
+        if (round != ROUNDS_NUMBER) addRoundKey(state, subkey);
     }
 
+    free(subkey); subkey = NULL;
     return state;
 }
 
-unsigned char *encrypt_block(unsigned char *block, unsigned char *expanded_key, unsigned char *counter)
+//it will encrypt block using the expanded_key and counter, result will be in block
+void encrypt_block(unsigned char *block, unsigned char *expanded_key, unsigned char *counter)
 {
-    unsigned char *new_state = F(counter, expanded_key);
-    unsigned char *after_xor = xor(block, new_state);
-    free(new_state);
-    new_state = NULL;
-    
-    return after_xor;
+    unsigned char *p = F(counter, expanded_key);
+    xor(block, p);
+
+    free(p); p = NULL;
 }
