@@ -3,13 +3,11 @@
 #include "lib/initializations.h"
 #include "lib/ctr.h"
 #include "lib/aes_encrypt.h"
+#include "lib/utils.h"
 #include <stdio.h>
+#include <string.h>
 
-void print_data(unsigned char *data, int length){
-    for (int i = 0; i<length; i++)
-        printf("%x ", data[i]);
-    printf("\n");
-}
+
 
 int main(){
     unsigned char test_key[16] = {0x2b, 0x7e, 0x15, 0x16, 0x28, 0xae, 0xd2, 0xa6, 0xab, 0xf7, 0x15, 0x88, 0x09, 0xcf, 0x4f, 0x3c};
@@ -48,6 +46,10 @@ int main(){
     // TO-DO : free pointers where they should be freed
     print_data(encrypt_block(block, expansion, nonce),BLOCK_SIZE);
     
+    /***** test read file *****/
+    int l = 0;
+    unsigned char* data = read_from_file("test_file", &l);
+    print_data(data, BLOCK_SIZE);
 
     /***********************/
 
