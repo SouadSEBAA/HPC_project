@@ -1,4 +1,4 @@
-#include "functions.h"
+#include "funcs.h"
 
 int main(int argc, char *argv[]) {
     //read key

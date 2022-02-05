@@ -1,4 +1,4 @@
-#include "functions.h"
+#include "funcs.h"
 
 unsigned char *encrypt(unsigned char *plaintext, size_t size, unsigned char *key, unsigned char *counter, bool debug) {
     size_t nblocks;
