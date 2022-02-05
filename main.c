@@ -2,7 +2,7 @@
 #include "lib/key_expansion.h"
 #include "lib/initializations.h"
 #include "lib/ctr.h"
-#include "lib/aes_encrypt.h"
+#include "lib/aes.h"
 #include "lib/utils.h"
 #include <stdio.h>
 #include <string.h>
@@ -21,6 +21,16 @@ int main(){
     /***** test subytes *****
 
     subytes(block);
+    print_data(block, BLOCK_SIZE);
+
+    /***** test shift rows *****
+
+    shiftRows(block);
+    print_data(block, BLOCK_SIZE);
+
+    /***** test mix columns *****
+
+    mixColumns(block);
     print_data(block, BLOCK_SIZE);
 
     /***** test key expansion *****
@@ -46,10 +56,16 @@ int main(){
     // TO-DO : free pointers where they should be freed
     print_data(encrypt_block(block, expansion, nonce),BLOCK_SIZE);
     
-    /***** test read file *****/
+    /***** test read file *****
     int l = 0;
     unsigned char* data = read_from_file("test_file", &l);
     print_data(data, BLOCK_SIZE);
+
+    /***** test encrypt block *****
+    unsigned char *p = (unsigned char *)calloc(BLOCK_SIZE, sizeof(unsigned char));
+    encrypt_block(p, expansion, block);
+    print_data(p, BLOCK_SIZE);
+
 
     /***********************/
 

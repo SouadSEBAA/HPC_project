@@ -22,10 +22,10 @@ unsigned char * F(unsigned char *block, unsigned char *expanded_key)
     for (round = 1; round <= ROUNDS_NUMBER; round++)
     {
         subytes(state);
-        //shift_rows
-        //mix_columns
+        shiftRows(state);
+        if (round != ROUNDS_NUMBER) mixColumns(state);
         get_ith_item(subkey, expanded_key, round, BLOCK_SIZE);
-        if (round != ROUNDS_NUMBER) addRoundKey(state, subkey);
+        addRoundKey(state, subkey);
     }
 
     free(subkey); subkey = NULL;
