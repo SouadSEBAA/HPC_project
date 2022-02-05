@@ -1,16 +1,16 @@
 #include "funcs.h"
 
 #define THREAD_PER_BLOCK 512
-#define NB_BLOCKS 1
+#define NB_BLOCKS 65535
 
 __global__ void device_encrypt (unsigned char *plaintext , unsigned char *ciphertext , unsigned char *nonce, unsigned char *expansion, size_t N)
 {
-    int i = threadIdx.x;
+    int i = blockIdx.x * blockDim.x + blockIdx.y + threadIdx.x;
     unsigned char* block = (unsigned char*) malloc(BLOCK_SIZE * sizeof(unsigned char));
     unsigned char* counter = (unsigned char*) malloc(BLOCK_SIZE * sizeof(unsigned char));
     memcpy(counter, nonce, BLOCK_SIZE);
 
-    if (i < N && i < THREAD_PER_BLOCK)
+    if (i < N && i < THREAD_PER_BLOCK * NB_BLOCKS)
     {
         get_ith_item(block, plaintext, i, BLOCK_SIZE);
         if (DEBUG) 
