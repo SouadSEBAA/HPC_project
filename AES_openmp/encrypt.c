@@ -1,6 +1,11 @@
 #include "funcs.h"
 
 int main(int argc, char *argv[]) {
+    struct timespec t1, t2;
+    double elapsed;
+
+    printf("AES-CTR encryption - OpenMP version (%d threads)\n", NUM_THREADS);
+
     //read key
     int l = 0;
     unsigned char * key = read_from_file(KEY_FILENAME, &l);
@@ -18,14 +23,16 @@ int main(int argc, char *argv[]) {
     int size = 0;
     unsigned char * plaintext = read_from_file(PLAINTEXT_FILENAME, &size);
     int nb = size / BLOCK_SIZE + (size % BLOCK_SIZE != 0);
-    if (DEBUG) 
-    {
-        printf("Number of blocks of this file is %d blocks\n", nb);
-        printf("Size of this file is %d bytes\n", size);
-    }
+    printf("Number of blocks of this file is %d blocks\n", nb);
+    printf("Size of this file is %d bytes\n", size);
 
     //encryption
+    clock_gettime(CLOCK_REALTIME, &t1);
     unsigned char * ciphertext = encrypt(plaintext, size, key, counter, DEBUG);
+    clock_gettime(CLOCK_REALTIME, &t2);
+    elapsed = measure_time(t1, t2);
+    printf("Time measured: %.3f seconds.\n", elapsed);
+
     write_to_file(CIPHERTEXT_FILENAME, ciphertext, size);
         
     free(key);

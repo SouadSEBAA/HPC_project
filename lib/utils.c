@@ -1,4 +1,5 @@
 #include "initializations.h"
+#include "utils.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -60,4 +61,15 @@ void write_to_file(char *file_name, unsigned char *buffer, long n)
 
     fwrite(buffer, n, 1, f); 
     fclose(f);
+}
+
+double measure_time(struct timespec begin, struct timespec end) {
+    long seconds, nanoseconds;
+    double elapsed;
+
+    seconds = end.tv_sec - begin.tv_sec;
+    nanoseconds = end.tv_nsec - begin.tv_nsec;
+    elapsed = seconds + nanoseconds*1e-9;
+
+    return elapsed;
 }

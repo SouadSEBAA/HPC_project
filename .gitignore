@@ -5,3 +5,5 @@ AES_*/enc
 AES_*/dec
 AES_*/key
 AES_*/nonce
+AES_*/encrypt
+AES_*/decrypt

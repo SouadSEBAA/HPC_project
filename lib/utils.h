@@ -1,3 +1,5 @@
+#include <time.h>
+
 #if __NVCC__ 
 __device__
 #endif
@@ -15,3 +17,4 @@ void print_data(unsigned char *data, int length);
 
 unsigned char * read_from_file(char *file_name, int *file_size);
 void write_to_file(char *file_name, unsigned char *buffer, long n);
+double measure_time(struct timespec begin, struct timespec end);
