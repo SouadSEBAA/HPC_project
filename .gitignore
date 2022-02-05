@@ -1,3 +1,7 @@
 .vs*
-
 *.o*
+AES_*/file
+AES_*/enc
+AES_*/dec
+AES_*/key
+AES_*/nonce
