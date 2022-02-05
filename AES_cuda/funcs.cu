@@ -47,6 +47,8 @@ __global__ void device_encrypt (unsigned char *plaintext , unsigned char *cipher
 void kernel_encrypt_wrapper(unsigned char *plaintext , unsigned char *ciphertext , unsigned char *nonce, unsigned char *expansion, size_t N)
 {
     unsigned char *gpu_expansion , *gpu_ciphertext , *gpu_plaintext, *gpu_nonce;
+    cudaEvent_t start, stop;
+    float elapsedTime;
 
     //allocate memory in the device
     int size_data = N * BLOCK_SIZE * sizeof(unsigned char);
@@ -61,6 +63,10 @@ void kernel_encrypt_wrapper(unsigned char *plaintext , unsigned char *ciphertext
     cudaMemcpy(gpu_nonce, nonce, BLOCK_SIZE, cudaMemcpyHostToDevice);
     cudaMemcpy(gpu_expansion, expansion, size_expansion, cudaMemcpyHostToDevice);
 
+    //for time
+    cudaEventCreate(&start);
+    cudaEventRecord(start,0);
+    cudaEventCreate(&stop);
 
     //execute on device
     device_encrypt <<<NB_BLOCKS,THREAD_PER_BLOCK>>> (gpu_plaintext, gpu_ciphertext, gpu_nonce, gpu_expansion, N);
@@ -68,6 +74,12 @@ void kernel_encrypt_wrapper(unsigned char *plaintext , unsigned char *ciphertext
     //copy results
     cudaMemcpy(ciphertext, gpu_ciphertext, size_data, cudaMemcpyDeviceToHost);
 
+    //calculate time
+    cudaEventRecord(stop,0);
+    cudaEventSynchronize(stop);
+    cudaEventElapsedTime(&elapsedTime, start,stop);
+
+    printf("time = %f ms\n" ,elapsedTime);
 
     cudaFree(gpu_ciphertext);
     cudaFree(gpu_plaintext);

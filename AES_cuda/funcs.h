@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#define DEBUG true
+#define DEBUG false
 #define PLAINTEXT_FILENAME "file"
 #define CIPHERTEXT_FILENAME "enc"
 #define KEY_FILENAME "key"
