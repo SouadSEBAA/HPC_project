@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {
 
     //decryption
     unsigned char * plaintext = decrypt(ciphertext, size, key, counter, DEBUG);
-    write_to_file(PLAINTEXT_FILENAME, plaintext, nb*BLOCK_SIZE);
+    write_to_file(PLAINTEXT_FILENAME, plaintext, size);
         
     free(key);
     key = NULL;

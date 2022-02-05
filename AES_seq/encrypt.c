@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
 
     //encryption
     unsigned char * ciphertext = encrypt(plaintext, size, key, counter, DEBUG);
-    write_to_file(CIPHERTEXT_FILENAME, ciphertext, nb*BLOCK_SIZE);
+    write_to_file(CIPHERTEXT_FILENAME, ciphertext, size);
         
     free(key);
     key = NULL;
