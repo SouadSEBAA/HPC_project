@@ -15,6 +15,9 @@ unsigned char * generate_initial_counter()
     return nonce;
 }
 
+#if __NVCC__ 
+__device__
+#endif
 void increment_counter(unsigned char *counter, int inc)
 {
     int i = BLOCK_SIZE - 1;
@@ -34,6 +37,9 @@ void increment_counter(unsigned char *counter, int inc)
     }
 }
 
+#if __NVCC__ 
+__device__
+#endif
 void next_counter(unsigned char *counter)
 {
     increment_counter(counter, 1);

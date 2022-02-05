@@ -2,13 +2,19 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#if __NVCC__ 
+__device__ 
+#endif
 //to xor two blocks of BLOCK_SIZE bytes
-void xor(unsigned char *block1, unsigned char* block2)
+void xor_blocks(unsigned char *block1, unsigned char* block2)
 {
     for (int i = 0; i < BLOCK_SIZE; i++)
         block1[i] ^= block2[i];
 }
 
+#if __NVCC__ 
+__device__ __host__
+#endif
 //get the ith block of size l in buffer, the result will be in dest
 void get_ith_item(unsigned char *dest, unsigned char *buffer, int i, int l)
 {
@@ -16,6 +22,9 @@ void get_ith_item(unsigned char *dest, unsigned char *buffer, int i, int l)
         dest[j] = buffer[i*l + j];
 }
 
+#if __NVCC__ 
+__device__ __host__
+#endif
 void print_data(unsigned char *data, int length)
 {
     for (int i = 0; i<length; i++)

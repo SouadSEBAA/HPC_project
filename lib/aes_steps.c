@@ -3,6 +3,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#if __NVCC__ 
+__device__
+#endif
 void subytes(unsigned char *block){
 
     for (int i = 0; i < BLOCK_SIZE; i++)
@@ -11,7 +14,9 @@ void subytes(unsigned char *block){
     }
 }
 
-
+#if __NVCC__ 
+__device__
+#endif
 void addRoundKey(unsigned char *block, unsigned char *subkey){
 
     for (int i = 0; i < BLOCK_SIZE; i++)
@@ -20,6 +25,9 @@ void addRoundKey(unsigned char *block, unsigned char *subkey){
     }
 }
 
+#if __NVCC__ 
+__device__
+#endif
 void shiftRows(unsigned char *block) {
     unsigned char tmp;
 
@@ -44,6 +52,9 @@ void shiftRows(unsigned char *block) {
     block[7] = tmp;
 }
 
+#if __NVCC__ 
+__device__
+#endif
 void mixColumns(unsigned char *block) {
     unsigned char b[4];
     int i;

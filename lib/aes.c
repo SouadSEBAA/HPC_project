@@ -5,6 +5,9 @@
 #include <stdio.h>
 #include <string.h>
 
+#if __NVCC__ 
+__device__ 
+#endif
 unsigned char * F(unsigned char *block, unsigned char *expanded_key)
 {
     int round = 0;
@@ -32,11 +35,14 @@ unsigned char * F(unsigned char *block, unsigned char *expanded_key)
     return state;
 }
 
+#if __NVCC__ 
+__device__ 
+#endif
 //it will encrypt block using the expanded_key and counter, result will be in block
 void encrypt_block(unsigned char *block, unsigned char *expanded_key, unsigned char *counter)
 {
     unsigned char *p = F(counter, expanded_key);
-    xor(block, p);
+    xor_blocks(block, p);
 
     free(p); p = NULL;
 }
