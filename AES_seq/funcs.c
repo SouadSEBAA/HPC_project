@@ -3,6 +3,8 @@
 unsigned char *encrypt(unsigned char *plaintext, size_t size, unsigned char *key, unsigned char *counter, bool debug) {
     size_t nblocks;
     unsigned char *expansion, *ciphertext, *block;
+    clock_t t1, t2;
+    float timeInS;
 
     expansion = key_expansion(key, BLOCK_SIZE);
     if (DEBUG) {
@@ -16,6 +18,8 @@ unsigned char *encrypt(unsigned char *plaintext, size_t size, unsigned char *key
 
     ciphertext = (unsigned char*) malloc(nblocks * BLOCK_SIZE * sizeof(unsigned char));
     block = (unsigned char*) malloc(BLOCK_SIZE * sizeof(unsigned char));
+
+    t1 = clock();
 
     for (int i = 0; i < nblocks; i++) {
         get_ith_item(block, plaintext, i, BLOCK_SIZE);
@@ -41,6 +45,11 @@ unsigned char *encrypt(unsigned char *plaintext, size_t size, unsigned char *key
             print_data(counter, BLOCK_SIZE); 
         }
     }
+
+
+    t2 = clock();
+    timeInS = (float)(t2-t1)/CLOCKS_PER_SEC;
+    printf("time = %fs\n", timeInS);
 
     free(block);
     block = NULL;
