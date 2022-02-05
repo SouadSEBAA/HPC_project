@@ -1,4 +1,4 @@
-#include "functions.h"
+#include "funcs.h"
 
 #define PLAINTEXT_FILENAME "dec"
 
