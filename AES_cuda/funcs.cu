@@ -69,7 +69,8 @@ void kernel_encrypt_wrapper(unsigned char *plaintext , unsigned char *ciphertext
     cudaEventCreate(&stop);
 
     //execute on device
-    device_encrypt <<<NB_BLOCKS,THREAD_PER_BLOCK>>> (gpu_plaintext, gpu_ciphertext, gpu_nonce, gpu_expansion, N);
+    int blocks = N / THREAD_PER_BLOCK + (N % THREAD_PER_BLOCK != 0);
+    device_encrypt <<<blocks,THREAD_PER_BLOCK>>> (gpu_plaintext, gpu_ciphertext, gpu_nonce, gpu_expansion, N);
 
     //copy results
     cudaMemcpy(ciphertext, gpu_ciphertext, size_data, cudaMemcpyDeviceToHost);
