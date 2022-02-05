@@ -40,8 +40,3 @@ void encrypt_block(unsigned char *block, unsigned char *expanded_key, unsigned c
 
     free(p); p = NULL;
 }
-
-void decrypt_block(unsigned char *block, unsigned char *expanded_key, unsigned char *counter)
-{
-    encrypt_block(block, expanded_key, counter);
-}
