@@ -15,7 +15,7 @@
 #define CIPHERTEXT_FILENAME "enc"
 #define KEY_FILENAME "key"
 #define NONCE_FILENAME "nonce"
-#define NUM_THREADS 4
+#define NUM_THREADS 8
 
 unsigned char *encrypt(unsigned char *plaintext, size_t size, unsigned char *key, unsigned char *counter, bool debug);
 unsigned char *decrypt(unsigned char *ciphertext, size_t size, unsigned char *key, unsigned char *counter, bool debug);

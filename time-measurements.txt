@@ -1,0 +1,35 @@
+AES-CTR encryption - Sequential version
+Number of blocks of this file is 6553600 blocks
+Size of this file is 104857600 bytes
+Time measured: 12.259 seconds.
+AES-CTR decryption - Sequential version
+Number of blocks of this file is 6553600 blocks
+Size of this file is 104857600 bytes
+Time measured: 12.477 seconds.
+
+AES-CTR encryption - OpenMP version (2 threads)
+Number of blocks of this file is 6553600 blocks
+Size of this file is 104857600 bytes
+Time measured: 7.295 seconds.
+AES-CTR decryption - OpenMP version (2 threads)
+Number of blocks of this file is 6553600 blocks
+Size of this file is 104857600 bytes
+Time measured: 7.511 seconds
+
+AES-CTR encryption - OpenMP version (4 threads)
+Number of blocks of this file is 6553600 blocks
+Size of this file is 104857600 bytes
+Time measured: 3.849 seconds.
+AES-CTR decryption - OpenMP version (4 threads)
+Number of blocks of this file is 6553600 blocks
+Size of this file is 104857600 bytes
+Time measured: 4.024 seconds.
+
+AES-CTR encryption - OpenMP version (8 threads)
+Number of blocks of this file is 6553600 blocks
+Size of this file is 104857600 bytes
+Time measured: 3.427 seconds.
+AES-CTR decryption - OpenMP version (8 threads)
+Number of blocks of this file is 6553600 blocks
+Size of this file is 104857600 bytes
+Time measured: 3.546 seconds.

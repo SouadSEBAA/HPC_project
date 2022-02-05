@@ -7,6 +7,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <time.h>
 
 #define DEBUG false
 #define PLAINTEXT_FILENAME "file"

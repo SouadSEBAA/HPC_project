@@ -5,8 +5,6 @@ unsigned char *encrypt(unsigned char *plaintext, size_t size, unsigned char *key
     unsigned char *expansion, *ciphertext, *blockPtr;
     unsigned char **counters;
     int i;
-    clock_t t1, t2;
-    float timeInS;
 
     expansion = key_expansion(key, BLOCK_SIZE);
     if (DEBUG) {
@@ -26,8 +24,6 @@ unsigned char *encrypt(unsigned char *plaintext, size_t size, unsigned char *key
         memcpy(counters[i], counter, BLOCK_SIZE);
         next_counter(counter);
     }
-
-    t1 = clock();
 
     #pragma omp parallel private(i, blockPtr) shared(plaintext, expansion, counters, ciphertext) num_threads(NUM_THREADS)
     {
@@ -55,11 +51,6 @@ unsigned char *encrypt(unsigned char *plaintext, size_t size, unsigned char *key
             counters[i] = NULL;
         }
     }
-
-    t2 = clock();
-
-    timeInS = (float)(t2-t1)/CLOCKS_PER_SEC;
-    printf("time = %fs\n", timeInS);
 
     free(counters);
     counters = NULL;
